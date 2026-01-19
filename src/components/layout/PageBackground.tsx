@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import bg from '../../assets/background.svg';
+import bg from '../../assets/images/background.svg';
 
 export function PageBackground({ children }: { children: ReactNode }) {
   return (

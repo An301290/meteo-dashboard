@@ -1,5 +1,6 @@
 import { Container } from './components/layout/Container';
 import { PageBackground } from './components/layout/PageBackground';
+import logo from './assets/images/mainlogo.svg';
 
 type Card = { id: string; title: string; desc: string };
 
@@ -16,7 +17,11 @@ function App() {
         <header className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">
-              Dashboard
+              <img
+                src={logo}
+                alt="Weather Now logo"
+                className="h-30 w-30 sm:h-50 sm:w-50"
+              />
             </h1>
             <p className="mt-2 text-sm text-slate-600 sm:text-base">
               Same page, responsive layout and spacing.
