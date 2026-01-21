@@ -2,16 +2,16 @@ import { InputLabel, FormControl, Select, MenuItem } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { whiteOutlinedInput } from 'assets/styles/mui';
 
-export function DropDown() {
+export const DropDown = () => {
   return (
     <div>
       <FormControl
         size="small"
         className="w-32 sm:w-48 lg:w-32 "
-        //sx={whiteOutlinedInput}
+        sx={whiteOutlinedInput}
       >
         <InputLabel id="units">
-          <SettingsIcon sx={{ pl: 0, pr: 0.5 }} />
+          <SettingsIcon sx={{ pl: 0, pr: 0.5, color: 'white' }} />
           Units
         </InputLabel>
         <Select
@@ -28,4 +28,4 @@ export function DropDown() {
       </FormControl>
     </div>
   );
-}
+};

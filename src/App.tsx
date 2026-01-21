@@ -2,6 +2,7 @@ import { Container } from './components/layout/Container';
 import { PageBackground } from './components/layout/PageBackground';
 import logo from './assets/images/mainlogo.svg';
 import { DropDown } from 'components/DropDown';
+import { SearchField } from 'components/SearchField';
 
 type Card = { id: string; title: string; desc: string };
 
@@ -31,6 +32,9 @@ function App() {
           <h1 className="text-center text-white text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl pt-8">
             How's the sky lookings today?
           </h1>
+        </div>
+        <div className="flex items-center justify-center">
+          <SearchField />
         </div>
         <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {cards.map((c) => (

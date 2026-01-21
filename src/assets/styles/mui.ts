@@ -17,14 +17,6 @@ export const whiteOutlinedInput: SxProps<Theme> = {
     color: 'white',
   },
 
-  /* Select value (important) */
-  '& .MuiSelect-select': {
-    color: 'white',
-  },
-  '& .MuiSelect-select:focus': {
-    color: 'white',
-  },
-
   /* Icon (arrow / settings icon) */
   '& .MuiSvgIcon-root': {
     color: 'white',
@@ -36,10 +28,5 @@ export const whiteOutlinedInput: SxProps<Theme> = {
   },
   '& .MuiInputLabel-root.Mui-focused': {
     color: 'white',
-  },
-
-  /* Prevent hover background tint */
-  '& .MuiOutlinedInput-root:hover': {
-    backgroundColor: 'transparent',
   },
 };

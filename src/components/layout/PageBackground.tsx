@@ -1,13 +1,12 @@
 import { ReactNode } from 'react';
-import bg from '../../assets/images/background.svg';
 
-export function PageBackground({ children }: { children: ReactNode }) {
+export const PageBackground = ({ children }: { children: ReactNode }) => {
   return (
     <div
       className="min-h-screen bg-cover bg-center opacity-90"
-      style={{ backgroundImage: `url(${bg})` }}
+      style={{ backgroundColor: '#02012C' }}
     >
       {children}
     </div>
   );
-}
+};
