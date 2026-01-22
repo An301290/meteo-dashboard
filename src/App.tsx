@@ -3,6 +3,7 @@ import { PageBackground } from './components/layout/PageBackground';
 import logo from './assets/images/mainlogo.svg';
 import { DropDown } from 'components/DropDown';
 import { SearchField } from 'components/SearchField';
+import { MainCard } from 'components/MainCard';
 
 type Card = { id: string; title: string; desc: string };
 
@@ -36,23 +37,19 @@ function App() {
         <div className="flex items-center justify-center">
           <SearchField />
         </div>
-        <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {cards.map((c) => (
-            <li key={c.id} className="rounded-xl border p-4 sm:p-5">
-              <h3 className="font-medium">{c.title}</h3>
-              <p className="mt-1 text-sm text-slate-600">{c.desc}</p>
-            </li>
-          ))}
-        </ul>
-
-        <div className="mt-6 grid gap-6 lg:grid-cols-12">
-          <section className="lg:col-span-8 rounded-xl border p-4 sm:p-6">
-            Main content
-          </section>
-
-          <aside className="lg:col-span-4 rounded-xl border p-4 sm:p-6">
-            Side content
-          </aside>
+        <div className="mt-6 grid gap-4 sm:grid-cols-1 lg:grid-cols-12">
+          <div className="lg:col-span-8">
+            <MainCard />
+            <div className="mt-6">
+              <MainCard />
+            </div>
+            <div className="mt-6">
+              <MainCard />
+            </div>
+          </div>
+          <div className="lg:col-span-4">
+            <MainCard />
+          </div>
         </div>
       </Container>
     </PageBackground>
