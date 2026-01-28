@@ -5,6 +5,7 @@ import { DropDown } from 'components/DropDown';
 import { SearchField } from 'components/SearchField';
 import { MainCard } from 'components/MainCard';
 import { HourlyForecastCard } from 'components/HourlyForecastCard';
+import { DailyForecastCard } from 'components/DailyForecastCard';
 
 type Card = { id: string; title: string; desc: string };
 
@@ -41,12 +42,9 @@ function App() {
         <div className="mt-6 grid gap-4 sm:grid-cols-1 lg:grid-cols-12">
           <div className="lg:col-span-8">
             <MainCard />
-            {/* <div className="mt-6">
-              <MainCard />
-            </div>
             <div className="mt-6">
-              <MainCard />
-            </div> */}
+              <DailyForecastCard />
+            </div>
           </div>
           <div className="lg:col-span-4">
             <HourlyForecastCard />
