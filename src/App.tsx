@@ -6,16 +6,16 @@ import { SearchField } from 'components/SearchField';
 import { MainCard } from 'components/MainCard';
 import { HourlyForecastCard } from 'components/HourlyForecastCard';
 import { DailyForecastCard } from 'components/DailyForecastCard';
-
-type Card = { id: string; title: string; desc: string };
-
-const cards: Card[] = [
-  { id: '1', title: 'Revenue', desc: 'This month’s revenue overview.' },
-  { id: '2', title: 'Users', desc: 'New signups and retention.' },
-  { id: '3', title: 'Performance', desc: 'Speed and error rates.' },
-];
+import { useFetch } from 'hooks/useFetch';
+import { GeocodingResponse } from 'types/openMeteo';
 
 function App() {
+  const { data, loading, error } = useFetch<GeocodingResponse>(
+    `https://geocoding-api.open-meteo.com/v1/search?name=Berlin&count=10&language=en&format=json`
+  );
+
+  console.log('App data:', data?.results);
+  //https://open-meteo.com/en/docs/geocoding-api
   return (
     <PageBackground>
       <Container>

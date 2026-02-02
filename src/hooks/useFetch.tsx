@@ -31,6 +31,6 @@ export function useFetch<T>(url: string) {
       active = false;
     };
   }, [url]);
-
+  console.log('useFetch data:', data);
   return { data, loading, error };
 }
