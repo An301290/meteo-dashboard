@@ -3,16 +3,19 @@ import { PageBackground } from './components/layout/PageBackground';
 import logo from './assets/images/mainlogo.svg';
 import { DropDown } from 'components/DropDown';
 import { SearchField } from 'components/SearchField';
-
-type Card = { id: string; title: string; desc: string };
-
-const cards: Card[] = [
-  { id: '1', title: 'Revenue', desc: 'This month’s revenue overview.' },
-  { id: '2', title: 'Users', desc: 'New signups and retention.' },
-  { id: '3', title: 'Performance', desc: 'Speed and error rates.' },
-];
+import { MainCard } from 'components/MainCard';
+import { HourlyForecastCard } from 'components/HourlyForecastCard';
+import { DailyForecastCard } from 'components/DailyForecastCard';
+import { useFetch } from 'hooks/useFetch';
+import { GeocodingResponse } from 'types/openMeteo';
 
 function App() {
+  const { data, loading, error } = useFetch<GeocodingResponse>(
+    `https://geocoding-api.open-meteo.com/v1/search?name=Berlin&count=10&language=en&format=json`
+  );
+
+  console.log('App data:', data?.results);
+  //https://open-meteo.com/en/docs/geocoding-api
   return (
     <PageBackground>
       <Container>
@@ -36,23 +39,16 @@ function App() {
         <div className="flex items-center justify-center">
           <SearchField />
         </div>
-        <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {cards.map((c) => (
-            <li key={c.id} className="rounded-xl border p-4 sm:p-5">
-              <h3 className="font-medium">{c.title}</h3>
-              <p className="mt-1 text-sm text-slate-600">{c.desc}</p>
-            </li>
-          ))}
-        </ul>
-
-        <div className="mt-6 grid gap-6 lg:grid-cols-12">
-          <section className="lg:col-span-8 rounded-xl border p-4 sm:p-6">
-            Main content
-          </section>
-
-          <aside className="lg:col-span-4 rounded-xl border p-4 sm:p-6">
-            Side content
-          </aside>
+        <div className="mt-6 grid gap-4 sm:grid-cols-1 lg:grid-cols-12">
+          <div className="lg:col-span-8">
+            <MainCard />
+            <div className="mt-6">
+              <DailyForecastCard />
+            </div>
+          </div>
+          <div className="lg:col-span-4">
+            <HourlyForecastCard />
+          </div>
         </div>
       </Container>
     </PageBackground>
