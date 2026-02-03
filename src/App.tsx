@@ -1,3 +1,4 @@
+import { useState, useMemo } from 'react';
 import { Container } from './components/layout/Container';
 import { PageBackground } from './components/layout/PageBackground';
 import logo from './assets/images/mainlogo.svg';
@@ -10,9 +11,18 @@ import { useFetch } from 'hooks/useFetch';
 import { GeocodingResponse } from 'types/openMeteo';
 
 function App() {
-  const { data, loading, error } = useFetch<GeocodingResponse>(
-    `https://geocoding-api.open-meteo.com/v1/search?name=Berlin&count=10&language=en&format=json`
-  );
+  const [cityName, setCityName] = useState<string>('');
+
+  const url = useMemo(() => {
+    const name = encodeURIComponent(cityName.trim() || 'Berlin');
+    return `https://geocoding-api.open-meteo.com/v1/search?name=${name}&count=10&language=en&format=json`;
+  }, [cityName]);
+
+  const { data, loading, error } = useFetch<GeocodingResponse>(url);
+
+  const handleSearch = () => {
+    setCityName(cityName);
+  };
 
   console.log('App data:', data?.results);
   //https://open-meteo.com/en/docs/geocoding-api
@@ -37,7 +47,11 @@ function App() {
           </h1>
         </div>
         <div className="flex items-center justify-center">
-          <SearchField />
+          <SearchField
+            value={cityName}
+            onChange={setCityName}
+            onSearch={handleSearch}
+          />
         </div>
         <div className="mt-6 grid gap-4 sm:grid-cols-1 lg:grid-cols-12">
           <div className="lg:col-span-8">
