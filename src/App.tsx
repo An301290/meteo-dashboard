@@ -24,14 +24,19 @@ function App() {
   }, [submittedCity]);
 
   const { data, loading, error } = useFetch<GeocodingResponse>(urlCountry);
-
+  console.log('Geocoding data:', data);
   const handleSearch = () => {
     setSubmittedCity(cityName);
   };
 
   const firstResult = data?.results?.[0];
   const weatherUrl = firstResult
-    ? `https://api.open-meteo.com/v1/forecast?latitude=${firstResult.latitude}&longitude=${firstResult.longitude}&current_weather=true`
+    ? `https://api.open-meteo.com/v1/forecast` +
+      `?latitude=${firstResult.latitude}` +
+      `&longitude=${firstResult.longitude}` +
+      `&timezone=auto` +
+      `&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,wind_speed_10m,wind_gusts_10m,weather_code` +
+      `&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max`
     : null;
 
   const {
@@ -41,8 +46,7 @@ function App() {
   } = useFetch<WeatherResponse>(weatherUrl);
 
   console.log('Weather data:', weatherData);
-  //Display information of the first city
-  //console.log('App data:', data?.results);
+
   //https://open-meteo.com/en/docs/geocoding-api
   return (
     <PageBackground>
