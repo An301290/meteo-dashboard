@@ -1,7 +1,19 @@
 import { Card } from '@mui/material';
 import bg from '../assets/images/background.svg';
 
-export const MainCard = () => {
+type MainCardProps = {
+  city: string;
+  country: string;
+  date: string;
+  temperature: number;
+};
+
+export const MainCard = ({
+  city,
+  country,
+  date,
+  temperature,
+}: MainCardProps) => {
   return (
     <div>
       <Card
@@ -15,13 +27,18 @@ export const MainCard = () => {
         }}
       >
         <div className="flex items-center justify-between p-4">
-          <div>
-            <h1>Berlin, Germany</h1>
-            <p>Tuesday, Aug 5, 2025</p>
-          </div>
-          <div>
-            <h1>22°C </h1>
-          </div>
+          {city && country && (
+            <div>
+              <div>
+                <h1>{`${city}, ${country}`}</h1>
+                <p>{date}</p>
+              </div>
+
+              <div>
+                <h1>{temperature}°C</h1>
+              </div>
+            </div>
+          )}
         </div>
       </Card>
       <Card

@@ -22,5 +22,22 @@ export type GeoResult = {
 };
 
 export type GeocodingResponse = {
-  results?: GeoResult[]; 
+  results?: GeoResult[];
 };
+
+export type WeatherResponse = {
+  latitude: number;
+  longitude: number;
+  current_weather: {
+    temperature: number;
+    windspeed: number;
+    weathercode: number;
+  };
+};
+
+export const formatDate = new Date().toLocaleDateString('en-US', {
+  weekday: 'long',
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+});

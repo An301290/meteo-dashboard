@@ -8,23 +8,41 @@ import { MainCard } from 'components/MainCard';
 import { HourlyForecastCard } from 'components/HourlyForecastCard';
 import { DailyForecastCard } from 'components/DailyForecastCard';
 import { useFetch } from 'hooks/useFetch';
-import { GeocodingResponse } from 'types/openMeteo';
+import {
+  formatDate,
+  GeocodingResponse,
+  WeatherResponse,
+} from 'types/openMeteoTypes';
 
 function App() {
   const [cityName, setCityName] = useState<string>('');
+  const [submittedCity, setSubmittedCity] = useState<string>('');
 
-  const url = useMemo(() => {
-    const name = encodeURIComponent(cityName.trim() || 'Berlin');
+  const urlCountry = useMemo(() => {
+    const name = encodeURIComponent(submittedCity.trim() || '');
     return `https://geocoding-api.open-meteo.com/v1/search?name=${name}&count=10&language=en&format=json`;
-  }, [cityName]);
+  }, [submittedCity]);
 
-  const { data, loading, error } = useFetch<GeocodingResponse>(url);
+  const { data, loading, error } = useFetch<GeocodingResponse>(urlCountry);
 
   const handleSearch = () => {
-    setCityName(cityName);
+    setSubmittedCity(cityName);
   };
 
-  console.log('App data:', data?.results);
+  const firstResult = data?.results?.[0];
+  const weatherUrl = firstResult
+    ? `https://api.open-meteo.com/v1/forecast?latitude=${firstResult.latitude}&longitude=${firstResult.longitude}&current_weather=true`
+    : null;
+
+  const {
+    data: weatherData,
+    loading: weatherLoading,
+    error: weatherError,
+  } = useFetch<WeatherResponse>(weatherUrl);
+
+  console.log('Weather data:', weatherData);
+  //Display information of the first city
+  //console.log('App data:', data?.results);
   //https://open-meteo.com/en/docs/geocoding-api
   return (
     <PageBackground>
@@ -55,7 +73,12 @@ function App() {
         </div>
         <div className="mt-6 grid gap-4 sm:grid-cols-1 lg:grid-cols-12">
           <div className="lg:col-span-8">
-            <MainCard />
+            <MainCard
+              city={firstResult?.name || ''}
+              country={firstResult?.country || ''}
+              date={formatDate}
+              temperature={weatherData?.current_weather?.temperature || 0}
+            />
             <div className="mt-6">
               <DailyForecastCard />
             </div>
