@@ -81,10 +81,14 @@ function App() {
               city={firstResult?.name || ''}
               country={firstResult?.country || ''}
               date={formatDate}
-              temperature={weatherData?.current_weather?.temperature || 0}
+              temperature={weatherData?.current.temperature_2m || 0}
+              feelsLike={weatherData?.current.apparent_temperature || 0}
+              humidity={weatherData?.current.relative_humidity_2m || 0}
+              wind={weatherData?.current.wind_speed_10m || 0}
+              precipitation={weatherData?.current.precipitation || 0}
             />
             <div className="mt-6">
-              <DailyForecastCard />
+              <DailyForecastCard />m
             </div>
           </div>
           <div className="lg:col-span-4">

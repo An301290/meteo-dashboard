@@ -3,7 +3,7 @@ export type GeoResult = {
   name: string;
   latitude: number;
   longitude: number;
-  elevation?: number;
+  /* elevation?: number;
   feature_code?: string;
   country_code?: string;
   admin1_id?: number;
@@ -13,12 +13,12 @@ export type GeoResult = {
   timezone?: string;
   population?: number;
   postcodes?: string[];
-  country_id?: number;
+  country_id?: number; */
   country?: string;
-  admin1?: string;
+  /* admin1?: string;
   admin2?: string;
   admin3?: string;
-  admin4?: string;
+  admin4?: string; */
 };
 
 export type GeocodingResponse = {
@@ -28,10 +28,14 @@ export type GeocodingResponse = {
 export type WeatherResponse = {
   latitude: number;
   longitude: number;
-  current_weather: {
-    temperature: number;
-    windspeed: number;
-    weathercode: number;
+  current: {
+    temperature_2m: number;
+    relative_humidity_2m: number;
+    apparent_temperature: number;
+    precipitation: number;
+    wind_speed_10m: number;
+    wind_gusts_10m: number;
+    weather_code: number;
   };
 };
 
