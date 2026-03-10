@@ -15,8 +15,8 @@ import {
 } from 'types/openMeteoTypes';
 
 function App() {
-  const [cityName, setCityName] = useState<string>('');
-  const [submittedCity, setSubmittedCity] = useState<string>('');
+  const [cityName, setCityName] = useState<string>('Berlin');
+  const [submittedCity, setSubmittedCity] = useState<string>('Berlin');
 
   const urlCountry = useMemo(() => {
     const name = encodeURIComponent(submittedCity.trim() || '');
@@ -88,7 +88,10 @@ function App() {
               precipitation={weatherData?.current.precipitation || 0}
             />
             <div className="mt-6">
-              <DailyForecastCard />m
+              <DailyForecastCard
+                maxTemp={weatherData?.daily.temperature_2m_max || []}
+                minTemp={weatherData?.daily.temperature_2m_min || []}
+              />
             </div>
           </div>
           <div className="lg:col-span-4">

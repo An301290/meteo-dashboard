@@ -37,6 +37,10 @@ export type WeatherResponse = {
     wind_gusts_10m: number;
     weather_code: number;
   };
+  daily: {
+    temperature_2m_max: number[];
+    temperature_2m_min: number[];
+  };
 };
 
 export const formatDate = new Date().toLocaleDateString('en-US', {
