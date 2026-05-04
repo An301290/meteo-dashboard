@@ -1,5 +1,5 @@
 import { Card } from '@mui/material';
-import { DropDown } from './DropDown';
+import { DropDownHourly } from './DropDownHourly';
 
 export const HourlyForecastCard = () => {
   return (
@@ -10,8 +10,8 @@ export const HourlyForecastCard = () => {
       }}
     >
       <div className="flex items-center justify-between p-4">
-        <h1>Hourly forecast</h1>
-        <DropDown />
+        <h1 style={{ color: 'white' }}>Hourly forecast</h1>
+        <DropDownHourly />
       </div>
 
       <Card

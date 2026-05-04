@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import { Container } from './components/layout/Container';
 import { PageBackground } from './components/layout/PageBackground';
 import logo from './assets/images/mainlogo.svg';
-import { DropDown } from 'components/DropDown';
+import { DropDownHourly } from 'components/DropDownHourly';
 import { SearchField } from 'components/SearchField';
 import { MainCard } from 'components/MainCard';
 import { HourlyForecastCard } from 'components/HourlyForecastCard';
@@ -36,6 +36,7 @@ function App() {
       `&longitude=${firstResult.longitude}` +
       `&timezone=auto` +
       `&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,wind_speed_10m,wind_gusts_10m,weather_code` +
+      `&hourly=temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m` +
       `&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max`
     : null;
 
@@ -61,7 +62,7 @@ function App() {
               />
             </h1>
           </div>
-          <DropDown />
+          <DropDownHourly />
         </header>
         <div>
           <h1 className="text-center text-white text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl pt-8">
