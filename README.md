@@ -1,47 +1,136 @@
-# Getting Started with Create React App
+# 🌤️ Weather App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A responsive weather application built with React, TypeScript, and the Open-Meteo API.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 📦 Tech Stack
 
-### `npm start`
+| Layer     | Technology                                                               |
+| --------- | ------------------------------------------------------------------------ |
+| Framework | React 18 + TypeScript                                                    |
+| Styling   | Tailwind CSS + MUI (Material UI)                                         |
+| API       | [Open-Meteo](https://open-meteo.com/) (free, no key required)            |
+| Geocoding | [Open-Meteo Geocoding API](https://open-meteo.com/en/docs/geocoding-api) |
+| State     | React `useState` / `useEffect`                                           |
+| Build     | Vite                                                                     |
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+---
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 🚀 Getting Started
 
-### `npm test`
+```bash
+npm install
+npm run dev
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🗂️ Project Structure
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+src/
+├── assets/
+│   └── styles/
+│       └── mui.ts              # MUI sx overrides (e.g. whiteOutlinedInput)
+├── components/
+│   ├── CurrentWeatherCard.tsx  # Temperature, icon, location
+│   ├── WeatherMetricsCard.tsx  # Feels like, humidity, wind, precipitation
+│   ├── DailyForecastCard.tsx   # 7-day forecast
+│   ├── HourlyForecastCard.tsx  # 24h scrollable hourly list
+│   │   └── DropDownHourly.tsx  # Day selector dropdown
+│   ├── SearchBar.tsx           # Location search input
+│   └── UnitsToggle.tsx         # Imperial / Metric switcher
+├── hooks/
+│   └── useWeather.ts           # Fetches weather + geocoding data
+├── utils/
+│   └── formatters.ts           # formatDate, formatHour, getUniqueDays
+├── types/
+│   └── weather.ts              # API response types
+├── App.tsx
+└── main.tsx
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🌐 API Reference
 
-### `npm run eject`
+### Geocoding — Search by location name
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+GET https://geocoding-api.open-meteo.com/v1/search?name={city}&count=1
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Weather — Fetch forecast by coordinates
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+GET https://api.open-meteo.com/v1/forecast
+  ?latitude={lat}
+  &longitude={lon}
+  &current=temperature_2m,apparent_temperature,weather_code,
+            relative_humidity_2m,wind_speed_10m,precipitation
+  &hourly=temperature_2m,time
+  &daily=temperature_2m_max,temperature_2m_min,weather_code,sunrise,sunset
+  &wind_speed_unit=mph          // omit for km/h
+  &temperature_unit=fahrenheit  // omit for celsius
+  &precipitation_unit=inch      // omit for mm
+  &timezone=auto
+  &forecast_days=7
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+---
 
-## Learn More
+## ✅ Features
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- [x] Search for any location by name
+- [x] Current conditions — temperature, feels like, humidity, wind, precipitation
+- [x] 7-day daily forecast with high/low
+- [x] Hourly forecast (24 items per day, scrollable)
+- [x] Day selector dropdown — defaults to today
+- [x] Toggle between Metric and Imperial units
+- [x] Responsive layout (mobile + desktop)
+- [ ] Geolocation on first visit
+- [ ] Saved/favourite locations
+- [ ] Compare locations side-by-side
+- [ ] UV index, visibility, air pressure
+- [ ] Sunrise / sunset times
+- [ ] Animated weather backgrounds
+- [ ] PWA support
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-# meteo-dashboard
+---
+
+## 🛠️ Utils — `src/utils/formatters.ts`
+
+```ts
+// "2026-05-08" or undefined → "Friday, May 8, 2026" / "Fri, May 8"
+formatDate(showYear?: boolean, isoString?: string): string
+
+// "2026-05-08T14:00" → "2 PM"
+formatHour(isoString: string): string
+
+// Full time array → ["2026-05-08", "2026-05-09", ...] (7 unique dates)
+getUniqueDays(timeArray: string[]): string[]
+```
+
+---
+
+## 📐 Units Toggle
+
+The units dropdown controls three API params sent on refetch:
+
+| Setting       | Metric    | Imperial     |
+| ------------- | --------- | ------------ |
+| Temperature   | `celsius` | `fahrenheit` |
+| Wind speed    | `km/h`    | `mph`        |
+| Precipitation | `mm`      | `inch`       |
+
+Store the selected unit in top-level state and pass it down to `useWeather` so the API re-fetches whenever it changes.
+
+---
+
+## 🎨 Design Notes
+
+- Background: `#1A1A2E` (page), `#2F2F49` (cards), `#25253F` (inner cards)
+- Font: System sans-serif or Inter
+- All interactive elements should have visible `:hover` and `:focus` states
+- Target breakpoints: `xs` (mobile), `sm` (tablet), `lg` (desktop)
