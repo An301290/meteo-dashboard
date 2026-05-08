@@ -1,14 +1,16 @@
 import { Button } from '@mui/material';
 
 type SearchButtonProps = {
-  // onClick: () => void;
+  onClick: () => void;
   buttontext: string;
 };
 
-export const SearchButton = ({ buttontext }: SearchButtonProps) => {
+export const SearchButton = ({ buttontext, onClick }: SearchButtonProps) => {
   return (
     <div>
-      <Button variant="contained">{buttontext}</Button>
+      <Button variant="contained" onClick={onClick}>
+        {buttontext}
+      </Button>
     </div>
   );
 };

@@ -1,20 +1,50 @@
+import { useState, useMemo } from 'react';
 import { Container } from './components/layout/Container';
 import { PageBackground } from './components/layout/PageBackground';
 import logo from './assets/images/mainlogo.svg';
-import { DropDown } from 'components/DropDown';
+import { DropDownHourly } from 'components/DropDownHourly';
 import { SearchField } from 'components/SearchField';
 import { MainCard } from 'components/MainCard';
 import { HourlyForecastCard } from 'components/HourlyForecastCard';
 import { DailyForecastCard } from 'components/DailyForecastCard';
 import { useFetch } from 'hooks/useFetch';
-import { GeocodingResponse } from 'types/openMeteo';
+import { GeocodingResponse, WeatherResponse } from 'types/openMeteoTypes';
+import { formatDate } from 'utils/formatters';
 
 function App() {
-  const { data, loading, error } = useFetch<GeocodingResponse>(
-    `https://geocoding-api.open-meteo.com/v1/search?name=Berlin&count=10&language=en&format=json`
-  );
+  const [cityName, setCityName] = useState<string>('Berlin');
+  const [submittedCity, setSubmittedCity] = useState<string>('Berlin');
 
-  console.log('App data:', data?.results);
+  const urlCountry = useMemo(() => {
+    const name = encodeURIComponent(submittedCity.trim() || '');
+    return `https://geocoding-api.open-meteo.com/v1/search?name=${name}&count=10&language=en&format=json`;
+  }, [submittedCity]);
+
+  const { data, loading, error } = useFetch<GeocodingResponse>(urlCountry);
+  console.log('Geocoding data:', data);
+  const handleSearch = () => {
+    setSubmittedCity(cityName);
+  };
+
+  const firstResult = data?.results?.[0];
+  const weatherUrl = firstResult
+    ? `https://api.open-meteo.com/v1/forecast` +
+      `?latitude=${firstResult.latitude}` +
+      `&longitude=${firstResult.longitude}` +
+      `&timezone=auto` +
+      `&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,wind_speed_10m,wind_gusts_10m,weather_code` +
+      `&hourly=temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m` +
+      `&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max`
+    : null;
+
+  const {
+    data: weatherData,
+    loading: weatherLoading,
+    error: weatherError,
+  } = useFetch<WeatherResponse>(weatherUrl);
+
+  console.log('Weather data:', weatherData);
+
   //https://open-meteo.com/en/docs/geocoding-api
   return (
     <PageBackground>
@@ -29,7 +59,7 @@ function App() {
               />
             </h1>
           </div>
-          <DropDown />
+          {/* <DropDownHourly /> */}
         </header>
         <div>
           <h1 className="text-center text-white text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl pt-8">
@@ -37,17 +67,36 @@ function App() {
           </h1>
         </div>
         <div className="flex items-center justify-center">
-          <SearchField />
+          <SearchField
+            value={cityName}
+            onChange={setCityName}
+            onSearch={handleSearch}
+          />
         </div>
         <div className="mt-6 grid gap-4 sm:grid-cols-1 lg:grid-cols-12">
           <div className="lg:col-span-8">
-            <MainCard />
+            <MainCard
+              city={firstResult?.name || ''}
+              country={firstResult?.country || ''}
+              date={formatDate(true)}
+              temperature={weatherData?.current.temperature_2m || 0}
+              feelsLike={weatherData?.current.apparent_temperature || 0}
+              humidity={weatherData?.current.relative_humidity_2m || 0}
+              wind={weatherData?.current.wind_speed_10m || 0}
+              precipitation={weatherData?.current.precipitation || 0}
+            />
             <div className="mt-6">
-              <DailyForecastCard />
+              <DailyForecastCard
+                maxTemp={weatherData?.daily.temperature_2m_max || []}
+                minTemp={weatherData?.daily.temperature_2m_min || []}
+              />
             </div>
           </div>
           <div className="lg:col-span-4">
-            <HourlyForecastCard />
+            <HourlyForecastCard
+              temperature_2m={weatherData?.hourly.temperature_2m || []}
+              time={weatherData?.hourly.time || []}
+            />
           </div>
         </div>
       </Container>
