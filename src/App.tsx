@@ -8,11 +8,8 @@ import { MainCard } from 'components/MainCard';
 import { HourlyForecastCard } from 'components/HourlyForecastCard';
 import { DailyForecastCard } from 'components/DailyForecastCard';
 import { useFetch } from 'hooks/useFetch';
-import {
-  formatDate,
-  GeocodingResponse,
-  WeatherResponse,
-} from 'types/openMeteoTypes';
+import { GeocodingResponse, WeatherResponse } from 'types/openMeteoTypes';
+import { formatDate } from 'utils/formatters';
 
 function App() {
   const [cityName, setCityName] = useState<string>('Berlin');
@@ -62,7 +59,7 @@ function App() {
               />
             </h1>
           </div>
-          <DropDownHourly />
+          {/* <DropDownHourly /> */}
         </header>
         <div>
           <h1 className="text-center text-white text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl pt-8">
@@ -81,7 +78,7 @@ function App() {
             <MainCard
               city={firstResult?.name || ''}
               country={firstResult?.country || ''}
-              date={formatDate}
+              date={formatDate(true)}
               temperature={weatherData?.current.temperature_2m || 0}
               feelsLike={weatherData?.current.apparent_temperature || 0}
               humidity={weatherData?.current.relative_humidity_2m || 0}
@@ -96,7 +93,10 @@ function App() {
             </div>
           </div>
           <div className="lg:col-span-4">
-            <HourlyForecastCard />
+            <HourlyForecastCard
+              temperature_2m={weatherData?.hourly.temperature_2m || []}
+              time={weatherData?.hourly.time || []}
+            />
           </div>
         </div>
       </Container>

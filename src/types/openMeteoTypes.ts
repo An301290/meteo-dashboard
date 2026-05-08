@@ -41,11 +41,8 @@ export type WeatherResponse = {
     temperature_2m_max: number[];
     temperature_2m_min: number[];
   };
+  hourly: {
+    temperature_2m: number[];
+    time: string[];
+  };
 };
-
-export const formatDate = new Date().toLocaleDateString('en-US', {
-  weekday: 'long',
-  month: 'long',
-  day: 'numeric',
-  year: 'numeric',
-});

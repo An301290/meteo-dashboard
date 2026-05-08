@@ -1,30 +1,42 @@
-import { InputLabel, FormControl, Select, MenuItem } from '@mui/material';
-import SettingsIcon from '@mui/icons-material/Settings';
+import {
+  InputLabel,
+  FormControl,
+  Select,
+  MenuItem,
+  SelectChangeEvent,
+} from '@mui/material';
 import { whiteOutlinedInput } from 'assets/styles/mui';
 
-export const DropDownHourly = () => {
+type DropDownHourlyProps = {
+  value: string;
+  onChange: (value: string) => void;
+  options: { value: string; label: string }[];
+};
+
+export const DropDownHourly = ({
+  value,
+  onChange,
+  options,
+}: DropDownHourlyProps) => {
+  const handleChange = (e: SelectChangeEvent) => {
+    onChange(e.target.value);
+  };
   return (
     <div>
-      <FormControl
-        size="small"
-        className="w-32 sm:w-48 lg:w-32 "
-        sx={whiteOutlinedInput}
-      >
+      <FormControl size="small" className="w-full" sx={whiteOutlinedInput}>
         <InputLabel id="day">Day</InputLabel>
         <Select
           labelId="day"
-          id="day"
-          //value={'age'}
+          value={value}
           label="Day"
-          //onChange={handleChange}
+          onChange={(e) => onChange(e.target.value)}
+          sx={{ minWidth: 120 }}
         >
-          <MenuItem value={10}>Monday</MenuItem>
-          <MenuItem value={20}>Tuesday</MenuItem>
-          <MenuItem value={30}>Wednesday</MenuItem>
-          <MenuItem value={40}>Thursday</MenuItem>
-          <MenuItem value={50}>Friday</MenuItem>
-          <MenuItem value={60}>Saturday</MenuItem>
-          <MenuItem value={70}>Sunday</MenuItem>
+          {options.map((opt) => (
+            <MenuItem key={opt.value} value={opt.value}>
+              {opt.label}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
     </div>
