@@ -63,7 +63,7 @@ export const MainCard = ({
               sx={{
                 minHeight: { xs: 50, sm: 50, lg: 70 },
                 flex: 1,
-                backgroundColor: '#2F2F49',
+                backgroundColor: 'hsl(var(--color-neutral-700))',
               }}
             >
               <div className="flex flex-col items-center justify-center p-4">

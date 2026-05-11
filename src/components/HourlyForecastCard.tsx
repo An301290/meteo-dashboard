@@ -28,7 +28,7 @@ export const HourlyForecastCard = ({
     <Card
       sx={{
         height: { xs: 430, sm: 450, lg: 490 },
-        backgroundColor: '#2F2F49',
+        backgroundColor: 'hsl(var(--color-neutral-700))',
       }}
     >
       <div className="flex items-center justify-between p-4">
@@ -46,7 +46,7 @@ export const HourlyForecastCard = ({
             sx={{
               m: 3,
               minHeight: { xs: 30, sm: 30, lg: 40 },
-              backgroundColor: '#25253F',
+              backgroundColor: 'hsl(var(--color-neutral-800))',
               display: 'flex',
               flexDirection: 'row',
               alignItems: 'center',
@@ -55,7 +55,12 @@ export const HourlyForecastCard = ({
               gap: '4px',
             }}
           >
-            <span style={{ color: '#aaa', fontSize: '0.75rem' }}>
+            <span
+              style={{
+                color: 'hsl(var(--color-neutral-300))',
+                fontSize: '0.75rem',
+              }}
+            >
               {formatHour(time)}
             </span>
             <span style={{ color: 'white', fontWeight: 'bold' }}>
