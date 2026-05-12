@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Card } from '@mui/material';
+import { useState, useEffect } from 'react';
+import { Card, Typography } from '@mui/material';
 import { DropDownHourly } from './DropDownHourly';
 import { formatDate, formatHour, getUniqueDays } from 'utils/formatters';
 
@@ -12,8 +12,17 @@ export const HourlyForecastCard = ({
   temperature_2m,
   time,
 }: HourlyForecastCardProps) => {
+  const today = new Date().toISOString().split('T')[0];
   const uniqueDays = getUniqueDays(time);
   const [selectedDay, setSelectedDay] = useState(uniqueDays[0] ?? '');
+
+  useEffect(() => {
+    if (uniqueDays.length === 0) return;
+    setSelectedDay((prev) => {
+      if (prev) return prev;
+      return uniqueDays.includes(today) ? today : uniqueDays[0];
+    });
+  }, [uniqueDays, today]);
   const hourlyData = time
     .map((t, index) => ({
       time: t,
@@ -33,7 +42,7 @@ export const HourlyForecastCard = ({
       }}
     >
       <div className="flex items-center justify-between p-4">
-        <h1 style={{ color: 'white' }}>Hourly forecast</h1>
+        <Typography style={{ color: 'white' }}>Hourly forecast</Typography>
         <DropDownHourly
           value={selectedDay}
           onChange={setSelectedDay}
@@ -55,17 +64,17 @@ export const HourlyForecastCard = ({
               padding: '8px',
             }}
           >
-            <span
+            <Typography
               style={{
                 color: 'hsl(var(--color-neutral-300))',
                 fontSize: '0.75rem',
               }}
             >
               {formatHour(time)}
-            </span>
-            <span style={{ color: 'white', fontWeight: 'bold' }}>
+            </Typography>
+            <Typography style={{ color: 'white', fontWeight: 'bold' }}>
               {temperature}°
-            </span>
+            </Typography>
           </Card>
         ))}
       </div>

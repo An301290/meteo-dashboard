@@ -1,10 +1,4 @@
-import {
-  InputLabel,
-  FormControl,
-  Select,
-  MenuItem,
-  SelectChangeEvent,
-} from '@mui/material';
+import { InputLabel, FormControl, Select, MenuItem } from '@mui/material';
 import { whiteOutlinedInput } from 'assets/styles/mui';
 
 type DropDownHourlyProps = {
@@ -18,9 +12,6 @@ export const DropDownHourly = ({
   onChange,
   options,
 }: DropDownHourlyProps) => {
-  const handleChange = (e: SelectChangeEvent) => {
-    onChange(e.target.value);
-  };
   return (
     <div>
       <FormControl size="small" className="w-full" sx={whiteOutlinedInput}>
