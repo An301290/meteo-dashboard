@@ -33,6 +33,10 @@ export const MainCard = ({
       <Card
         sx={{
           minHeight: { xs: 160, sm: 180, lg: 220 },
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          backgroundColor: 'hsl(var(--color-neutral-700))',
         }}
         style={{
           backgroundImage: `url(${bg})`,
@@ -42,7 +46,7 @@ export const MainCard = ({
       >
         <div>
           {city && country && (
-            <div className="flex items-center justify-between pt-20 p-4">
+            <div className="flex h-full flex-row items-center  justify-between p-4">
               <div>
                 <Typography>{`${city}, ${country}`}</Typography>
                 <Typography>{date}</Typography>

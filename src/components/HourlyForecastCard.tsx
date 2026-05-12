@@ -27,6 +27,7 @@ export const HourlyForecastCard = ({
   return (
     <Card
       sx={{
+        minHeight: { xs: 50, sm: 50, lg: 70 },
         height: { xs: 450, sm: 470, lg: 560 },
         backgroundColor: 'hsl(var(--color-neutral-700))',
       }}
