@@ -1,4 +1,10 @@
-import { InputLabel, FormControl, Select, MenuItem } from '@mui/material';
+import {
+  InputLabel,
+  FormControl,
+  Select,
+  MenuItem,
+  Typography,
+} from '@mui/material';
 import { whiteOutlinedInput } from 'assets/styles/mui';
 
 type DropDownHourlyProps = {
@@ -24,8 +30,18 @@ export const DropDownHourly = ({
           sx={{ minWidth: 120 }}
         >
           {options.map((opt) => (
-            <MenuItem key={opt.value} value={opt.value}>
-              {opt.label}
+            <MenuItem
+              key={opt.value}
+              value={opt.value}
+              color="text.primary"
+              sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}
+            >
+              <Typography
+                color="text.primary"
+                sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}
+              >
+                {opt.label}
+              </Typography>
             </MenuItem>
           ))}
         </Select>

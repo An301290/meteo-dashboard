@@ -42,7 +42,12 @@ export const HourlyForecastCard = ({
       }}
     >
       <div className="flex items-center justify-between p-4">
-        <Typography style={{ color: 'white' }}>Hourly forecast</Typography>
+        <Typography
+          color="text.primary"
+          sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}
+        >
+          Hourly forecast
+        </Typography>
         <DropDownHourly
           value={selectedDay}
           onChange={setSelectedDay}
