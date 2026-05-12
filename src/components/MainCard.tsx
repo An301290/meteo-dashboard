@@ -1,4 +1,4 @@
-import { Card } from '@mui/material';
+import { Card, Typography } from '@mui/material';
 import bg from '../assets/images/background.svg';
 
 type MainCardProps = {
@@ -40,35 +40,34 @@ export const MainCard = ({
           backgroundPosition: 'center',
         }}
       >
-        <div className="flex items-center justify-between p-4">
+        <div>
           {city && country && (
-            <div>
+            <div className="flex items-center justify-between pt-20 p-4">
               <div>
-                <h1>{`${city}, ${country}`}</h1>
-                <p>{date}</p>
+                <Typography>{`${city}, ${country}`}</Typography>
+                <Typography>{date}</Typography>
               </div>
 
               <div>
-                <h1>{temperature}°C</h1>
+                <Typography variant="h3">{temperature}°C</Typography>
               </div>
             </div>
           )}
         </div>
       </Card>
       {city && country && (
-        <div className="flex gap-4 mt-4">
+        <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
           {weatherDetails.map((info) => (
             <Card
               key={info.label}
               sx={{
                 minHeight: { xs: 50, sm: 50, lg: 70 },
-                flex: 1,
                 backgroundColor: 'hsl(var(--color-neutral-700))',
               }}
             >
               <div className="flex flex-col items-center justify-center p-4">
-                <span>{info.label}</span>
-                <span>{info.value}</span>
+                <Typography color="text.secondary">{info.label}</Typography>
+                <Typography color="text.primary">{info.value}</Typography>
               </div>
             </Card>
           ))}

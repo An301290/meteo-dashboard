@@ -12,7 +12,7 @@ export const appTheme = createTheme({
       secondary: 'hsl(var(--color-neutral-300))',
     },
     primary: {
-      main: 'hsl(var(--color-orange-500))',
+      main: 'hsl(var(--color-blue-500))',
     },
     secondary: {
       main: 'hsl(var(--color-blue-500))',
@@ -24,15 +24,23 @@ export const appTheme = createTheme({
     fontSize: 18,
     h1: {
       fontFamily: 'Bricolage Grotesque, ui-sans-serif, system-ui',
-      fontWeight: 700,
+      fontWeight: 500,
     },
     h2: {
       fontFamily: 'Bricolage Grotesque, ui-sans-serif, system-ui',
-      fontWeight: 700,
+      fontWeight: 500,
     },
     h3: {
       fontFamily: 'Bricolage Grotesque, ui-sans-serif, system-ui',
-      fontWeight: 700,
+      fontWeight: 500,
+    },
+    h4: {
+      fontFamily: 'Bricolage Grotesque, ui-sans-serif, system-ui',
+      fontWeight: 500,
+    },
+    h5: {
+      fontFamily: 'Bricolage Grotesque, ui-sans-serif, system-ui',
+      fontWeight: 500,
     },
   },
   breakpoints: {

@@ -28,7 +28,7 @@ export const SearchField = ({
         placeholder="Search for a place..."
         size="small"
         fullWidth
-        sx={{ ...whiteOutlinedInput, marginRight: '10px' }}
+        sx={{ ...whiteOutlinedInput, pr: 5 }}
         slotProps={{
           input: {
             startAdornment: (

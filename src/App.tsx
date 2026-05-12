@@ -2,7 +2,6 @@ import { useState, useMemo } from 'react';
 import { Container } from './components/layout/Container';
 import { PageBackground } from './components/layout/PageBackground';
 import logo from './assets/images/mainlogo.svg';
-import { DropDownHourly } from 'components/DropDownHourly';
 import { SearchField } from 'components/SearchField';
 import { MainCard } from 'components/MainCard';
 import { HourlyForecastCard } from 'components/HourlyForecastCard';
@@ -10,6 +9,7 @@ import { DailyForecastCard } from 'components/DailyForecastCard';
 import { useFetch } from 'hooks/useFetch';
 import { GeocodingResponse, WeatherResponse } from 'types/openMeteoTypes';
 import { formatDate } from 'utils/formatters';
+import { Typography } from '@mui/material';
 
 function App() {
   const [cityName, setCityName] = useState<string>('Berlin');
@@ -45,7 +45,6 @@ function App() {
 
   console.log('Weather data:', weatherData);
 
-  //https://open-meteo.com/en/docs/geocoding-api
   return (
     <PageBackground>
       <Container>
@@ -59,12 +58,11 @@ function App() {
               />
             </h1>
           </div>
-          {/* <DropDownHourly /> */}
         </header>
         <div>
-          <h1 className="text-center text-white text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl pt-8">
+          <Typography variant="h5" className="text-center">
             How's the sky lookings today?
-          </h1>
+          </Typography>
         </div>
         <div className="flex items-center justify-center">
           <SearchField

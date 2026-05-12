@@ -27,7 +27,7 @@ export const HourlyForecastCard = ({
   return (
     <Card
       sx={{
-        height: { xs: 430, sm: 450, lg: 490 },
+        height: { xs: 450, sm: 470, lg: 560 },
         backgroundColor: 'hsl(var(--color-neutral-700))',
       }}
     >
@@ -45,14 +45,13 @@ export const HourlyForecastCard = ({
             key={time}
             sx={{
               m: 3,
-              minHeight: { xs: 30, sm: 30, lg: 40 },
+              minHeight: { xs: 40, sm: 50, lg: 60 },
               backgroundColor: 'hsl(var(--color-neutral-800))',
               display: 'flex',
               flexDirection: 'row',
               alignItems: 'center',
               justifyContent: 'space-between',
               padding: '8px',
-              gap: '4px',
             }}
           >
             <span
